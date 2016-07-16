@@ -1,0 +1,43 @@
+<Template name="createConvo">
+  {{#if hasBase}}
+    {{> createStep}}
+  {{else}}
+    {{> convoMaster}}
+  {{/if}}
+  {{#each steps}}
+    {{> viewStep}}
+  {{/each}}
+  <button id="create-convo">Create Conversation</button>
+</Template>
+
+
+<Template name="createStep">
+  <h1>Add Step</h1>
+  <form>
+    <label>name</label><br/>
+    <input type="text" name="name"><br/>
+    <label>body</label><br/>
+    <input type="text" name="body"><br/>
+    <label>expected response</label><br/>
+    <input type="text" name="expectedResponse"><br/>
+    <input type="submit" value="Add step">
+  </form>
+</Template>
+
+<Template name="convoMaster">
+  <h1>Create Conversation</h1>
+  <form>
+    <label>phone number</label>
+    <input type="text" name="phoneNumber">
+    <label>default response</label>
+    <input type="text" name="defaultResponse">
+    <input type="submit" value="Start creating conversation steps">
+  </form>
+</Template>
+
+<Template name="viewStep">
+  <p>{{name}}</p>
+  <p>{{body}}</p>
+  <p>{{expectedResponse}}</p>
+  <button id="delete">Delete Step</button>
+</Template>

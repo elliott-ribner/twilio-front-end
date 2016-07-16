@@ -1,0 +1,13 @@
+<Template name="register">
+{{#if loggedIn}}
+  <a href="/create-convo">Create A conversation</a>
+{{else}}
+  <form>
+    <label>email</label><br/>
+    <input type="text" name="email"><br/>
+    <label>password</label><br/>
+    <input type="text" name="password"><br/>
+    <input type="submit" value="create user">
+  </form>
+{{/if}}
+</Template>
