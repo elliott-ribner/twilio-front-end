@@ -1,10 +1,12 @@
 <Template name="login">
-  {{#if loggedIn}}
-    <a href="/create-convo">Create A conversation</a>
-  {{else}}
-    <input type="text" name="email" id="email">
-    <input type="text" name="password" id="password">
-    <button id="submit-login">Submit</button>
-    <hr>
-  {{/if}}
+  <div class="container">
+    {{#if loggedIn}}
+      <a href="/create-convo">Create A conversation</a>
+    {{else}}
+      <input type="text" name="email" id="email">
+      <input type="text" name="password" id="password">
+      <button id="submit-login" class="button">Submit</button>
+      <hr>
+    {{/if}}
+  </div>
 </Template>
