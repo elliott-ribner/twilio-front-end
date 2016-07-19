@@ -1,4 +1,9 @@
+import Models from './models'
 Template.createConvo.helpers({
+
+  loggedIn: function() {
+    return Session.get("credentials");
+  },
   hasBase: function() {
     return Session.get('convo')
   },
@@ -40,31 +45,38 @@ Template.convoMaster.events({
     var defaultResponse = e.target.defaultResponse.value;
     var ownerEmail = Session.get('credentials').email;
     var opts = {
-      base: {
-        phoneNumber: phoneNumber,
-        defaultResponse: defaultResponse,
-        ownerEmail: ownerEmail
-      },
+      phoneNumber: phoneNumber,
+      defaultResponse: defaultResponse,
+      ownerEmail: ownerEmail,
       steps: []
+    };
+    var convoContext = ConversationSchema.newContext();
+    convoContext.validate(opts);
+    if (convoContext.isValid()) {
+      Session.set('convo', opts);
+    } else {
+      return _exposeSchemaError(convoContext);
     }
-    Session.set('convo', opts)
   }
 })
 
 Template.createStep.events({
   'submit form': function(e) {
     e.preventDefault();
-    var name = e.target.name.value;
-    var body = e.target.body.value;
-    var expectedResponse = e.target.expectedResponse.value;
     var step = {
-      name: name,
-      body: body,
-      expectedResponse: expectedResponse
+      name: e.target.name.value,
+      body: e.target.body.value,
+      expectedResponse: e.target.expectedResponse.options[e.target.expectedResponse.options.selectedIndex].text
     }
+    var stepContext = ConversationSchema.newContext();
     var previousConvo = Session.get('convo');
     previousConvo.steps.push(step);
-    Session.set('convo',previousConvo);
+    stepContext.validate(previousConvo);
+    if (stepContext.isValid()) {
+      Session.set('convo', previousConvo);
+    } else {
+      return _exposeSchemaError(stepContext)
+    }
   }
 })
 

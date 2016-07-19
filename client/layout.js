@@ -8,3 +8,10 @@ Template.layout.helpers({
     }
   }
 })
+
+Template.layout.onCreated(function() {
+  var cookCreds = Cookie.get('credentials');
+  if (cookCreds) {
+    Session.set('credentials', JSON.parse(cookCreds));
+  }
+})

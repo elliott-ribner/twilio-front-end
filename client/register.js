@@ -34,7 +34,8 @@ Template.register.events({
       if (err) {return console.log(err)}
       console.log("result",res);
       if (res.success) {
-        Session.set("credentials", res);  
+        Session.set("credentials", res);
+        _setAuthCookie(res); 
       } else {
         _setError("server error: registration not successfull");
       }

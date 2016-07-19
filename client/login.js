@@ -23,11 +23,12 @@ Template.login.events({
       email: email,
       password: password
     }
-    Meteor.call("login", opts, function(err, res) {
+    Meteor.call("_login", opts, function(err, res) {
       if (err) {return console.log(err)}
       console.log("result",res);
       if(res.token) {
         Session.set("credentials", res);
+        _setAuthCookie(res);
       } else {
         _setError("server error: login not successful");
       }
@@ -36,11 +37,3 @@ Template.login.events({
     //password password
   }
 })
-
-
-_setError = function(error) {
-  Session.set("error", error);
-  Meteor.setTimeout(function() {
-    Session.set("error", false);
-  }, 10*1000);
-}

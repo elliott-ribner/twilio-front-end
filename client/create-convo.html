@@ -1,43 +1,69 @@
 <Template name="createConvo">
-  {{#if hasBase}}
-    {{> createStep}}
+<div class="container">
+  {{#if loggedIn}}
+    {{#if hasBase}}
+      {{> createStep}}
+      <div class="text-center">
+        <button id="create-convo" class="btn btn-success">Create Conversation</button>
+      </div>
+    {{else}}
+      {{> convoMaster}}
+    {{/if}}
+    <div class="row">
+    {{#each steps}}
+      {{> viewStep}}
+    {{/each}}
+    </div>
   {{else}}
-    {{> convoMaster}}
+    {{> login}}
   {{/if}}
-  {{#each steps}}
-    {{> viewStep}}
-  {{/each}}
-  <button id="create-convo">Create Conversation</button>
+  {{> error}}
+</div>
 </Template>
 
 
 <Template name="createStep">
   <h1>Add Step</h1>
-  <form>
-    <label>name</label><br/>
-    <input type="text" name="name"><br/>
-    <label>body</label><br/>
-    <input type="text" name="body"><br/>
-    <label>expected response</label><br/>
-    <input type="text" name="expectedResponse"><br/>
-    <input type="submit" value="Add step">
+  <form id="step">
+    <div class="form-group">
+      <label>name</label>
+      <input type="text" name="name" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label>body</label>
+      <input type="text" name="body" class="form-control" id="body">
+    </div>
+    <div class="form-group">
+      <label>expected response</label>
+      <select type="text" name="expectedResponse" class="form-control" id="expected-response">
+        <option>String</option>
+        <option>Number</option>
+      </select>
+    </div>
+    <button type="submit" id="submit" class="btn btn-success">Add Step</button>
   </form>
 </Template>
 
 <Template name="convoMaster">
   <h1>Create Conversation</h1>
-  <form>
-    <label>phone number</label>
-    <input type="text" name="phoneNumber">
-    <label>default response</label>
-    <input type="text" name="defaultResponse">
-    <input type="submit" value="Start creating conversation steps">
+  <form id="convo">
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="text" name="phoneNumber" class="form-control" id="phonen_number">
+    </div>
+    <div class="form-group">
+      <label>Default Response</label>
+      <input type="text" name="defaultResponse" class="form-control" id="default_response">
+    </div>
+    <button type="submit" id="submit" class="btn btn-success">Create Convo Steps</button>
   </form>
 </Template>
 
 <Template name="viewStep">
-  <p>{{name}}</p>
-  <p>{{body}}</p>
-  <p>{{expectedResponse}}</p>
-  <button id="delete">Delete Step</button>
+  <div class="existing-step col-sm-3 text-center">
+    <p>{{name}}</p>
+    <p>{{body}}</p>
+    <p>{{expectedResponse}}</p>
+    <button id="delete" class="btn btn-danger">Delete Step</button>
+  </div>
 </Template>
