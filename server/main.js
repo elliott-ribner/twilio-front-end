@@ -14,7 +14,7 @@ Meteor.methods({
     var parsed = JSON.parse(response.content);
     return {token: parsed.token, email: opts.email};
   },
-  login: function(opts) {
+  _login: function(opts) {
     if (!opts.email && !opts.password) {
       throw new Meteor.Error("Enter Email and password");
     } 

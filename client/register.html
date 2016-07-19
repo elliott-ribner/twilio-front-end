@@ -1,13 +1,22 @@
 <Template name="register">
-{{#if loggedIn}}
-  <a href="/create-convo">Create A conversation</a>
-{{else}}
-  <form>
-    <label>email</label><br/>
-    <input type="text" name="email"><br/>
-    <label>password</label><br/>
-    <input type="text" name="password"><br/>
-    <input type="submit" value="create user">
-  </form>
-{{/if}}
+<div class="container">
+  {{#if loggedIn}}
+    <a href="/create-convo" class="btn btn-primary btn-lg" >Create A conversation</a>
+  {{else}}
+    <h1>Register</h1>
+    <form id="register-user">
+      <div class="form-group">
+        <input type="email" placeholder="Email" class="form-control" name="email">
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Password" class="form-control" id="password" name="password">
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Confirm Password" class="form-control" id="password_two" name="password_two">
+      </div>
+      <button type="submit" class="btn btn-success">Register</button>
+    </form>
+    {{> error}}
+  {{/if}}
+</div>
 </Template>
